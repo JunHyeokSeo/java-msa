@@ -20,7 +20,7 @@ public class ItemController {
 	private final ItemService itemService;
 
 	@RequestMapping(value = "/add/{itemType}", method = RequestMethod.POST)
-	public ResponseEntity<ResponseDTO> add(@Valid @RequestBody ItemDTO itemDTO, @ItemTypeValid @PathVariable String itemType) {
+	public ResponseEntity<ResponseDTO> add(@Valid @RequestBody ItemDTO itemDTO, @ItemTypeValid @PathVariable String itemType) throws Exception {
 		ResponseDTO.ResponseDTOBuilder responseBuilder = ResponseDTO.builder();
 
 		itemDTO.setItemType(itemType);

@@ -1,6 +1,7 @@
 package org.msa.item.presentation.exceptionhandler;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.msa.item.common.constant.error.exception.ApiException;
 import org.msa.item.presentation.dto.ResponseDTO;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,13 @@ public class ApiExceptionHandler {
 
 		ResponseDTO.ResponseDTOBuilder responseBuilder = ResponseDTO.builder();
 		responseBuilder.code("500").message(builder.toString());
+		return ResponseEntity.ok(responseBuilder.build());
+	}
+
+	@ExceptionHandler(ApiException.class)
+	public ResponseEntity<?> handleApiExceptions(ApiException ex) throws JSONException {
+		ResponseDTO.ResponseDTOBuilder responseBuilder = ResponseDTO.builder();
+		responseBuilder.code("501").message(ex.getMessage());
 		return ResponseEntity.ok(responseBuilder.build());
 	}
 }
