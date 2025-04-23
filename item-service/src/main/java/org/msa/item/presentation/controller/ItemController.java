@@ -2,6 +2,7 @@ package org.msa.item.presentation.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.msa.item.application.ItemService;
 import org.msa.item.presentation.dto.ItemDTO;
 import org.msa.item.presentation.dto.ResponseDTO;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class ItemController {
+	private final ItemService itemService;
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<ResponseDTO> add(@RequestBody ItemDTO itemDTO) {
 		ResponseDTO.ResponseDTOBuilder responseBuilder = ResponseDTO.builder();
 
+		itemService.insertItem(itemDTO);
 		log.debug("request add item id = {}", itemDTO.getId());
 
 		responseBuilder.code("200").message("success");
