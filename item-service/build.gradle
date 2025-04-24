@@ -21,6 +21,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url "https://repo.spring.io/release" } // Spring 라이브러리 위치
 }
 
 dependencyManagement {
@@ -47,7 +48,11 @@ dependencies {
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
-	testImplementation 'com.h2database:h2'
+	//Spring Cloud Config Server의 대칭키/비대칭키 기반 암호화 기능을 사용하기 위함
+	implementation 'org.springframework.security:spring-security-rsa:1.0.13.RELEASE'
+
+	//actuator
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
