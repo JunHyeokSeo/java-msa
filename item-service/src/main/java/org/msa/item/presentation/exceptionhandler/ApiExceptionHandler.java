@@ -3,7 +3,6 @@ package org.msa.item.presentation.exceptionhandler;
 import jakarta.servlet.http.HttpServletRequest;
 import org.msa.item.common.constant.error.exception.ApiException;
 import org.msa.item.presentation.dto.ResponseDTO;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,7 +20,7 @@ public class ApiExceptionHandler {
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) throws JSONException {
+	public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		BindingResult bindingResult = ex.getBindingResult();
 		StringBuilder builder = new StringBuilder();
 		for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -40,7 +39,7 @@ public class ApiExceptionHandler {
 	}
 
 	@ExceptionHandler(ApiException.class)
-	public ResponseEntity<?> handleApiExceptions(ApiException ex) throws JSONException {
+	public ResponseEntity<?> handleApiExceptions(ApiException ex) {
 		ResponseDTO.ResponseDTOBuilder responseBuilder = ResponseDTO.builder();
 		responseBuilder.code("501").message(ex.getMessage());
 		return ResponseEntity.ok(responseBuilder.build());
